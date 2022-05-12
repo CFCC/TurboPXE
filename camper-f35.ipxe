@@ -1,0 +1,18 @@
+#!ipxe
+
+set params inst.ks=${deploy_root}/kickstart/camper_ks.cfg
+
+set osversion 35
+set sku_type Everything
+set os_arch ${arch}
+set dir ${fedora_base_dir}/releases/${osversion}/${sku_type}/${os_arch}/os
+isset ${dhcp-server} && set ipparam ip=dhcp || set ipparam ip=${ip}::${gateway}:${netmask}:::none nameserver=${dns}
+set ipparam BOOTIF=${netX/mac} ${ipparam}
+
+imgfree
+kernel ${fedora_mirror}/${dir}/images/pxeboot/vmlinuz inst.repo=${fedora_mirror}/${dir} ${params} ${ipparam} initrd=initrd.magic ${cmdline}
+initrd ${fedora_mirror}/${dir}/images/pxeboot/initrd.img
+echo
+echo MD5sums:
+md5sum vmlinuz initrd.img
+boot

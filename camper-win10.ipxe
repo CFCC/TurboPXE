@@ -1,0 +1,15 @@
+#!ipxe
+
+set win_arch x64
+set win_base_url ${deploy_root}/windows
+
+imgfree
+kernel http://${boot_domain}/wimboot
+initrd -n bootmgr     ${win_base_url}/${win_arch}/bootmgr       bootmgr ||
+initrd -n bootmgr.efi ${win_base_url}/${win_arch}/bootmgr.efi   bootmgr.efi ||      
+initrd -n bcd         ${win_base_url}/${win_arch}/boot/bcd      bcd ||
+initrd -n bcd         ${win_base_url}/${win_arch}/Boot/BCD      bcd ||
+initrd -n boot.sdi    ${win_base_url}/${win_arch}/boot/boot.sdi boot.sdi ||
+initrd -n boot.sdi    ${win_base_url}/${win_arch}/Boot/boot.sdi boot.sdi ||
+initrd -n boot.wim    ${win_base_url}/${win_arch}/sources/boot.wim boot.wim
+boot
