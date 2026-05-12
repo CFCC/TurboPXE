@@ -26,6 +26,7 @@ isset ${next-server} && menu ${site_name} v${version} - next-server: ${next-serv
 item --gap Default:
 item local ${space} Boot from local hdd
 item --gap Camper Installations:
+item camper-win11 ${space} Windows 11
 item camper-win10 ${space} Windows 10
 item camper-f35 ${space} Fedora 35
 item --gap Distributions:

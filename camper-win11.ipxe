@@ -1,0 +1,12 @@
+#!ipxe
+
+set win_base_url ${deploy_root}/windows11/WinPE
+
+imgfree
+kernel http://${boot_domain}/wimboot
+initrd -n bootmgr     ${win_base_url}/bootmgr       bootmgr ||
+initrd -n bootmgr.efi ${win_base_url}/bootmgr.efi   bootmgr.efi ||      
+initrd -n bcd         ${win_base_url}/Boot/BCD      bcd ||
+initrd -n boot.sdi    ${win_base_url}/Boot/boot.sdi boot.sdi ||
+initrd -n boot.wim    ${win_base_url}/sources/boot.wim boot.wim
+boot
